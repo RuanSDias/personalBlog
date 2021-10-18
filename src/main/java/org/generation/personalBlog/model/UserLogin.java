@@ -5,7 +5,14 @@ public class UserLogin {
 	private String name;
 	private String user;
 	private String password;
+	private String token;
 	
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
 	public String getName() {
 		return name;
 	}
