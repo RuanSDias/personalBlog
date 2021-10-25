@@ -5,15 +5,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 @Table (name = "db_user")
 public class UserModel {
 	private @Id @GeneratedValue (strategy = GenerationType.IDENTITY) long id;
 	private @NotBlank String name;
-	private @NotBlank String user;
+	private @ApiModelProperty (example = "email@email.com") @NotBlank (message = "User field is required") @Email (message = "User must be an valid Email") String user;
 	private @NotBlank @Size (min = 5, max = 100) String password;
 	
 	public long getId() {

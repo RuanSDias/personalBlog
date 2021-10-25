@@ -29,7 +29,7 @@ public class UserService {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		Optional<UserModel> userL = repository.findByUser(user.get().getUser());
 		if(userL.isPresent()) {
-			if(encoder.matches(user.get().getPassword(), user.get().getPassword())) {
+			if(encoder.matches(user.get().getPassword(), userL.get().getPassword())) {
 				
 				String auth = user.get().getUser() + ":" + user.get().getPassword();
 				byte [] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
@@ -37,12 +37,15 @@ public class UserService {
 				
 				user.get().setToken(authHeader);
 				user.get().setName(user.get().getName());
+				user.get().setPassword(user.get().getPassword());
+				user.get().setUser(user.get().getUser());
+				user.get().setIdUser(user.get().getIdUser());
 				
 				return user;
 			}
 		}
 		
-		return null;
+		return Optional.empty();
 	}
 
 }
