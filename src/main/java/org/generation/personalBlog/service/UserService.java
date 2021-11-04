@@ -25,6 +25,8 @@ public class UserService {
 			return repository.save(user);
 	}
 	
+
+	
 	public Optional<UserLogin> Login(Optional<UserLogin> user) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		Optional<UserModel> userL = repository.findByUser(user.get().getUser());
@@ -36,10 +38,12 @@ public class UserService {
 				String authHeader = "Basic " + new String (encodedAuth);
 				
 				user.get().setToken(authHeader);
-				user.get().setName(user.get().getName());
-				user.get().setPassword(user.get().getPassword());
-				user.get().setUser(user.get().getUser());
-				user.get().setIdUser(user.get().getIdUser());
+				user.get().setName(userL.get().getName());
+				user.get().setPassword(userL.get().getPassword());
+				user.get().setUser(userL.get().getUser());
+				user.get().setIdUser(userL.get().getId());
+				user.get().setPicture(userL.get().getPicture());
+				user.get().setType(userL.get().getType());
 				
 				return user;
 			}

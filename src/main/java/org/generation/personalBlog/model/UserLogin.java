@@ -2,16 +2,18 @@ package org.generation.personalBlog.model;
 
 public class UserLogin {
 	
-	private String idUser;
+	private Long idUser;
 	private String name;
 	private String user;
 	private String password;
 	private String token;
+	private String picture;
+	private String type;
 	
-	public String getIdUser() {
+	public Long getIdUser() {
 		return idUser;
 	}
-	public void setIdUser(String idUser) {
+	public void setIdUser(Long idUser) {
 		this.idUser = idUser;
 	}
 	public String getToken() {
@@ -38,5 +40,18 @@ public class UserLogin {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getPicture() {
+		return picture;
+	}
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 	
 }

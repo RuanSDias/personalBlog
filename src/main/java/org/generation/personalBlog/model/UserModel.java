@@ -18,6 +18,8 @@ public class UserModel {
 	private @NotBlank String name;
 	private @ApiModelProperty (example = "email@email.com") @NotBlank (message = "User field is required") @Email (message = "User must be an valid Email") String user;
 	private @NotBlank @Size (min = 5, max = 100) String password;
+	private String picture;
+	private String type;
 	
 	public long getId() {
 		return id;
@@ -43,5 +45,18 @@ public class UserModel {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getPicture() {
+		return picture;
+	}
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 	
 }
