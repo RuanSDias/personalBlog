@@ -17,14 +17,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "tb_theme")
 public class ThemeModel {
 	
-	private @Id @GeneratedValue (strategy = GenerationType.IDENTITY) long id;
+	private @Id @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
 	private @NotBlank String description;
 	private @OneToMany (mappedBy = "theme", cascade = CascadeType.ALL) @JsonIgnoreProperties ("theme") List<PostModel> post;
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getDescription() {

@@ -13,42 +13,47 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-	
+
 	@Autowired
 	private UserRepository repository;
-	
-	public UserModel RegisterUser (UserModel user) {
+
+	public Optional<UserModel> RegisterUser(UserModel user) {
+		Optional<UserModel> optionalUser = repository.findByEmail(user.getEmail());
+
+		if (optionalUser.isPresent()) {
+			return Optional.empty();
+		} else {
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			String passwordEncoder = encoder.encode(user.getPassword());
 			user.setPassword(passwordEncoder);
-			
-			return repository.save(user);
-	}
-	
 
-	
+			return Optional.ofNullable(repository.save(user));
+		}
+
+	}
+
 	public Optional<UserLogin> Login(Optional<UserLogin> user) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		Optional<UserModel> userL = repository.findByUser(user.get().getUser());
-		if(userL.isPresent()) {
-			if(encoder.matches(user.get().getPassword(), userL.get().getPassword())) {
-				
-				String auth = user.get().getUser() + ":" + user.get().getPassword();
-				byte [] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
-				String authHeader = "Basic " + new String (encodedAuth);
-				
+		Optional<UserModel> userL = repository.findByEmail(user.get().getEmail());
+		if (userL.isPresent()) {
+			if (encoder.matches(user.get().getPassword(), userL.get().getPassword())) {
+
+				String auth = user.get().getEmail() + ":" + user.get().getPassword();
+				byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
+				String authHeader = "Basic " + new String(encodedAuth);
+
 				user.get().setToken(authHeader);
 				user.get().setName(userL.get().getName());
+				user.get().setEmail(userL.get().getEmail());
 				user.get().setPassword(userL.get().getPassword());
-				user.get().setUser(userL.get().getUser());
 				user.get().setIdUser(userL.get().getId());
 				user.get().setPicture(userL.get().getPicture());
 				user.get().setType(userL.get().getType());
-				
+
 				return user;
 			}
 		}
-		
+
 		return Optional.empty();
 	}
 
