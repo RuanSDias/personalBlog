@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +44,12 @@ public class UserController {
 	@GetMapping
 	public ResponseEntity<List<UserModel>> GetAllUsers () {
 		return ResponseEntity.ok(userRepository.findAll());
+	}
+	
+	@GetMapping("/{id_user}")
+	public ResponseEntity<UserModel> getUserById(@PathVariable(value = "id_user") Long idUser) {
+		return userRepository.findById(idUser).map(resp -> ResponseEntity.ok(resp))
+				.orElse(ResponseEntity.status(404).build());
 	}
 	
 	

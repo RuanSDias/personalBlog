@@ -17,7 +17,7 @@ public class UserDetailsImplements implements UserDetails {
 	
 
 	public UserDetailsImplements(UserModel user) {
-		this.userName = user.getUser();
+		this.userName = user.getEmail();
 		this.password = user.getPassword();
 	}
 	

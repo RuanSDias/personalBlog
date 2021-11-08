@@ -40,7 +40,7 @@ public class UserService {
 				user.get().setToken(authHeader);
 				user.get().setName(userL.get().getName());
 				user.get().setPassword(userL.get().getPassword());
-				user.get().setUser(userL.get().getUser());
+				user.get().setUser(userL.get().getEmail());
 				user.get().setIdUser(userL.get().getId());
 				user.get().setPicture(userL.get().getPicture());
 				user.get().setType(userL.get().getType());
