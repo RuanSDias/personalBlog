@@ -26,6 +26,7 @@ public class PostModel {
 	private @NotBlank @Size (min = 1, max = 500) String text;
 	private @Temporal (TemporalType.TIMESTAMP) Date date = new java.sql.Date(System.currentTimeMillis());
 	private @ManyToOne @JsonIgnoreProperties ("post") ThemeModel theme;
+	private @ManyToOne @JsonIgnoreProperties ("post") UserModel poster;
 	
 	public Long getId() {
 		return id;
@@ -58,6 +59,13 @@ public class PostModel {
 	public void setTheme(ThemeModel theme) {
 		this.theme = theme;
 	}
+	public UserModel getPoster() {
+		return poster;
+	}
+	public void setPoster(UserModel poster) {
+		this.poster = poster;
+	}
+	
 	
 
 }
